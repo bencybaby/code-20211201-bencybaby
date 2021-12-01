@@ -30,6 +30,11 @@ def append_bmi_values(person_data:dict):
     
     # Iterate through person data
     for person in person_data:
+        
+        #Validate Input data
+        if person["HeightCm"] == 0 or (type(person["HeightCm"]) != int or type(person["HeightCm"]) == float) or (type(person["WeightKg"]) != int or type(person["WeightKg"]) == float):
+            print("Input height is incorrect for the object : "+ str(person))
+            continue
 
         #Calculate BMI
         bmi = calculate_bmi(person["WeightKg"],(person["HeightCm"]/100))
@@ -109,6 +114,7 @@ def find_people_count_on_category(person_data:dict, category:str):
         """
     count = 0
     for person in person_data:
+        person.setdefault('Category', 'Not Present')
         if person["Category"] == category:
             count = count+1
     return count
